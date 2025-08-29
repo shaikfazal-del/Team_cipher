@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fake Website Detector</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .high {
+            color: red;
+            font-weight: bold;
+        }
+
+        .medium {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .low {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 Fake Website Detector</h1>
+    <form method="POST">
+        <input type="text" name="url" placeholder="Enter website URL" size="40" required>
+        <button type="submit">Check</button>
+    </form>
+
+    {% if results %}
+    <div class="card">
+        <h2>Results for: {{ results.url }}</h2>
+        <p><b>Final Score:</b> {{ results.final_score|round(2) }}%</p>
+        <p><b>Risk Level:</b>
+            <span class="{{ results.risk_level.lower().split()[0] }}">{{ results.risk_level }}</span>
+        </p>
+        <h3>Reasons:</h3>
+        <ul>
+            {% for r in results.reasons %}
+            <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</body>
+
+</html>
